@@ -1,0 +1,33 @@
+Class User.Order extends %Persistent {
+
+Relationship Shop As Shop [ Cardinality = children, Inverse = Orders ];
+
+Property Total As %Float;
+
+Property Date As %Date;
+
+Storage Default
+{
+<Data name="OrderDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Number</Value>
+</Value>
+<Value name="3">
+<Value>Total</Value>
+</Value>
+<Value name="4">
+<Value>DateOfSale</Value>
+</Value>
+</Data>
+<DataLocation>^User.OrderD</DataLocation>
+<DefaultData>OrderDefaultData</DefaultData>
+<IdLocation>^User.OrderD</IdLocation>
+<IndexLocation>^User.OrderI</IndexLocation>
+<StreamLocation>^User.OrderS</StreamLocation>
+<Type>%Library.CacheStorage</Type>
+}
+
+}

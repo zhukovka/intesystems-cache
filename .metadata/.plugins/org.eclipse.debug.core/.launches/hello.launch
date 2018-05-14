@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="com.intersys.eclipse.studio.DebugModel.Type">
+<stringAttribute key="dbgp_session_id" value="ide_key"/>
+<intAttribute key="dbpg_waiting_timeout" value="30000"/>
+<booleanAttribute key="enableBreakOnFirstLine" value="false"/>
+<booleanAttribute key="enableDbgpLogging" value="false"/>
+<stringAttribute key="nature" value="com.intersys.eclipse.studio.nature"/>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/lab1/hello.mac"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<stringAttribute key="project" value="lab1"/>
+<stringAttribute key="remoteWorkingDir" value=""/>
+<booleanAttribute key="stripSourceFolders" value="false"/>
+<stringAttribute key="studio-entrypoint-type" value="routine"/>
+<stringAttribute key="studio-routine-name" value="hello"/>
+</launchConfiguration>

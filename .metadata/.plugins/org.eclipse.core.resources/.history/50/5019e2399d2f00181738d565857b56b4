@@ -1,0 +1,10 @@
+ROUTINE global
+global ; global routine
+ //MustHave(category) = name
+ //MustHave(category, subcategory) = name  
+ //MustHave(category, subcategory, item) = [colors, price]
+ 
+ set ^MustHave("Closing") = "women closing"
+ set ^MustHave("Closing", "dresses", "Boohoo Bold Stripe Midi Dress") = $lb("Multi", 42)
+
+end quit  ; end 

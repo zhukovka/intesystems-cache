@@ -1,0 +1,77 @@
+Class User.Order Extends (%Persistent, %Library.Populate)
+{
+
+Relationship Shop As Shop [ Cardinality = one, Inverse = Orders ];
+
+Property Total As %Float(POPSPEC = "Float(42, 4200)");
+
+Property Date As %Date(POPSPEC = "Date()");
+
+Property Items As list Of User.Item(POPSPEC = ":3");
+
+Query All() As %Query(CONTAINID = 1, ROWSPEC = "Date:%Date,Total:%Float")
+{
+}
+
+Storage Default
+{
+<Data name="OrderDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Number</Value>
+</Value>
+<Value name="3">
+<Value>Total</Value>
+</Value>
+<Value name="4">
+<Value>DateOfSale</Value>
+</Value>
+<Value name="5">
+<Value>Date</Value>
+</Value>
+<Value name="6">
+<Value>Shop</Value>
+</Value>
+<Value name="7">
+<Value>Items</Value>
+</Value>
+</Data>
+<DataLocation>^User.OrderD</DataLocation>
+<DefaultData>OrderDefaultData</DefaultData>
+<ExtentSize>8</ExtentSize>
+<IdLocation>^User.OrderD</IdLocation>
+<IndexLocation>^User.OrderI</IndexLocation>
+<Property name="%%CLASSNAME">
+<AverageFieldSize>1</AverageFieldSize>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="%%ID">
+<AverageFieldSize>1</AverageFieldSize>
+<Selectivity>1</Selectivity>
+</Property>
+<Property name="Date">
+<AverageFieldSize>5</AverageFieldSize>
+<Selectivity>12.5000%</Selectivity>
+</Property>
+<Property name="Items">
+<AverageFieldSize>1</AverageFieldSize>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="Shop">
+<AverageFieldSize>1</AverageFieldSize>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="Total">
+<AverageFieldSize>3.5</AverageFieldSize>
+<Selectivity>12.5000%</Selectivity>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<StreamLocation>^User.OrderS</StreamLocation>
+<Type>%Library.CacheStorage</Type>
+}
+
+}

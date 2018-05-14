@@ -1,0 +1,117 @@
+ROUTINE global
+global ; global routine
+ Kill ^MustHave
+ //MustHave(category) = name
+ //MustHave(category, subcategory) = name  
+ //MustHave(category, subcategory, item) = [colors, price]
+ 
+ set ^MustHave("Closing") = "women closing"
+ set ^MustHave("Closing", "dresses", "Boohoo Bold Stripe Midi Dress") = $lb("Multi", 42)
+ set ^MustHave("Closing", "dresses", "Premium Spot High Neck Ruffle Maxi Dress") = $lb("Multi/Black/White", 65)
+ set ^MustHave("Closing", "dresses", "Max&Co Colourblock Midi Dress") = $lb("Lemon/Mint", 189)
+
+ set ^MustHave("Closing", "pants", "Oasis Checked Tailored Trousers") = $lb("Multi", 42)
+ set ^MustHave("Closing", "pants", "Missguided Cigarette Trousers") = $lb("White/Black/Blue", 15)
+ set ^MustHave("Closing", "pants", "Y.A.S Striped Wide Leg Trousers") = $lb("Red/Biege", 55)
+
+ set ^MustHave("Shoes", "boots", "ALDO Two Part Ankle Strap Going Out Show with Mirror Heel") = $lb("Pink", 79)
+ set ^MustHave("Shoes", "boots", "ASOS ESLYN Western Boots") = $lb("Black", 38)
+ set ^MustHave("Shoes", "boots", "Steve Madden Dream Rope Tie Up Heeled Sandals") = $lb("Black", 110)
+ 
+ set ^MustHave("Accessories", "bags", "Ted Baker Pearl Stud Matinee with Chain Strap") = $lb("Black", 110)
+ set ^MustHave("Accessories", "bags", "Versace Jeans Foldover Crossbody Bag") = $lb("Black", 150)
+ set ^MustHave("Accessories", "bags", "Perspex Cross Body Ball Bag With Chain Strap") = $lb("Black", 25)
+ 
+ write !, "Welcome to MustHave shop"
+
+ // 	do find("pants")
+ write !, "1. Browse"
+ write !, "2. Find"
+ 
+ set i = $$select(2)
+ if (i=1){
+ 	do browse()
+ } else {
+ 	write !, "search for: "
+ 	read search
+ 	do find(search)
+ }
+ quit  ; end 
+
+loop(key) PUBLIC
+ {
+	 set i = 0
+	 set categories = $lb()
+	 Set k = $Order(@key)
+	 while (k '= "") {
+	 	set i = i + 1
+	 	write !, i, " ", k
+	 	
+	 	SET $LIST(categories,i) = k
+	 	Set k = $Order(^(k))
+	 }
+	 quit categories 
+ }
+
+select(i) PUBLIC
+ { 
+	 do{
+	 	write !, "Pick an option (from 1 to ", i , ")"
+	 	read ctg
+	 }
+	 while ('$ISVALIDNUM(ctg, 0, 1, i))
+	 quit ctg 
+ }
+ 
+format(details) PUBLIC
+ {  
+ 	if ($LISTVALID(details)) {
+ 		write !, "colors: ", $LIST(details, 1)
+ 		write !, "price: ", $LIST(details, 2), "$"
+ 	}
+ quit }
+ 
+browse() PUBLIC
+ { 
+ set categories = $$loop( $NAME(^MustHave("")) )
+ set i = $LL(categories)
+ 
+ set category = $LIST(categories, $$select(i))
+ set categories = $$loop( $NAME(^MustHave(category, "")) )
+ set i = $LL(categories)
+ if (i>1) {
+ 	set subcatogory = $LIST(categories, $$select(i))
+ } else {
+	set subcatogory = $LIST(categories,i)
+ } 
+ write !, subcatogory, ":"
+ set items = $$loop( $NAME(^MustHave(category, subcatogory, "")) )
+ set i = $LL(items)
+
+ set item = $LIST(items, $$select(i))
+ write !, item
+ do format(^MustHave(category, subcatogory, item))
+ quit }
+ 
+find(q){
+ 	Set node = $Query(^MustHave(""))
+	 While (node '= "") {
+	 	set name = $qsubscript(node, $qlength(node))
+		set re = "(?i)"_q
+	 	if ($LOCATE(name, re) > 0 || $$listLocate(@node, re) > 0){
+		 	write !!, name
+ //		 	ZWRITE @node
+		    do format(@node)
+	 	}
+	    // get next node
+	    Set node = $Query(@node)
+	 }
+	 quit
+}
+
+listLocate(list, re){
+	if ($LISTVALID(list)) {
+		quit $LOCATE($LISTTOSTRING(list), re)
+	}
+	quit -1
+}

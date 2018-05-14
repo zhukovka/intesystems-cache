@@ -1,0 +1,23 @@
+Class User.Stock extends (%Persistent, %Library.Populate) {
+
+Relationship Items As Item [ Cardinality = many, Inverse = Stock ];
+
+Relationship Shop As Shop [ Cardinality = parent, Inverse = Stock ];
+
+
+Storage Default
+{
+<Data name="StockDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+</Data>
+<DataLocation>{%%PARENT}("Stock")</DataLocation>
+<DefaultData>StockDefaultData</DefaultData>
+<IdLocation>^User.ShopC("Stock")</IdLocation>
+<IndexLocation>^User.StockI</IndexLocation>
+<StreamLocation>^User.StockS</StreamLocation>
+<Type>%Library.CacheStorage</Type>
+}
+
+}

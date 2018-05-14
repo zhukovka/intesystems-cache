@@ -1,0 +1,23 @@
+ROUTINE populate
+
+populate ; populate routine
+ 	// Kill old data
+	Do ##class(Garment).%KillExtent()
+	Do ##class(Accessory).%KillExtent()
+	Do ##class(Customer).%KillExtent()
+	Do ##class(Shop).%KillExtent()
+	Do ##class(Stock).%KillExtent()
+	
+	//Populate data
+ //POPSPEC = "Currency()"
+ //, POPSPEC="ValueList("",Boohoo Bold Stripe,Boohoo Bold Stripe,Ted Baker Pearl,Missguided,Premium Spot"")"
+ //, POPSPEC = "String(4)"
+	write !, ##class(Garment).Populate(12)
+	write !, ##class(Accessory).Populate(5)
+	write !, ##class(Customer).Populate(3)
+ //
+ //	set stock =##class(Stock).%New()
+ //	write !, ##class(Shop).Populate(1)
+	
+ 
+end quit  ; end 

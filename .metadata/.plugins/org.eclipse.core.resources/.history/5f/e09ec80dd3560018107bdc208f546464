@@ -1,0 +1,35 @@
+Class User.Accessory extends (%Persistent, User.Item) {
+Property Dimensions As Dimensions;
+Relationship Stock As Stock [ Cardinality = one, Inverse = Items ];
+
+Storage Default
+{
+<Data name="AccessoryDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Dimensions</Value>
+</Value>
+<Value name="3">
+<Value>Price</Value>
+</Value>
+<Value name="4">
+<Value>Name</Value>
+</Value>
+<Value name="5">
+<Value>SKU</Value>
+</Value>
+<Value name="6">
+<Value>Photo</Value>
+</Value>
+</Data>
+<DataLocation>^User.AccessoryD</DataLocation>
+<DefaultData>AccessoryDefaultData</DefaultData>
+<IdLocation>^User.AccessoryD</IdLocation>
+<IndexLocation>^User.AccessoryI</IndexLocation>
+<StreamLocation>^User.AccessoryS</StreamLocation>
+<Type>%Library.CacheStorage</Type>
+}
+
+}

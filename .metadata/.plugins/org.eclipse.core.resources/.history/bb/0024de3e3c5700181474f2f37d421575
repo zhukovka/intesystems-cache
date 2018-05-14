@@ -1,0 +1,61 @@
+Class User.Shop Extends (%Persistent, %Library.Populate)
+{
+
+Relationship Stock As Stock [ Cardinality = children, Inverse = Shop ];
+
+Relationship Orders As Order [ Cardinality = many, Inverse = Shop ];
+
+Property Name As %String(MAXLEN = 120);
+
+ClassMethod GetAllOrdersExecute(ByRef qHandle As %Binary, ShopID As %Numeric) As %Status
+{
+ 
+   set shop = ##class(User.Shop).%OpenId(ShopID) 
+   if '$IsObject(shop) quit $$$ERROR() 
+   Set key = "" 
+   Do { 
+      Set order = shop.Orders.GetNext(.key) 
+      If (order '= "") { 
+         set $li(qHandle, *+1) = $lb(key, order) 
+      } 
+   } While (key '= "") 
+   kill ^||iter 
+   set ^||iter = 1 
+   Quit $$$OK
+}
+
+Storage Default
+{
+<Data name="ShopDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+</Data>
+<DataLocation>^User.ShopD</DataLocation>
+<DefaultData>ShopDefaultData</DefaultData>
+<ExtentSize>1</ExtentSize>
+<IdLocation>^User.ShopD</IdLocation>
+<IndexLocation>^User.ShopI</IndexLocation>
+<Property name="%%CLASSNAME">
+<AverageFieldSize>1</AverageFieldSize>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="%%ID">
+<AverageFieldSize>1</AverageFieldSize>
+<Selectivity>1</Selectivity>
+</Property>
+<Property name="Name">
+<AverageFieldSize>18</AverageFieldSize>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<StreamLocation>^User.ShopS</StreamLocation>
+<Type>%Library.CacheStorage</Type>
+}
+
+}

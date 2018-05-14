@@ -1,0 +1,30 @@
+Class User.Customer extends (%Persistent, %Library.Populate) {
+
+Property Name As %String(MAXLEN = 120, POPSPEC = "Name(""F"")");
+
+Property Address As %String(MAXLEN = 120);
+
+Relationship Orders As Order [ Cardinality = many, Inverse = Customer ];
+
+Storage Default
+{
+<Data name="CustomerDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+<Value name="3">
+<Value>Address</Value>
+</Value>
+</Data>
+<DataLocation>^User.CustomerD</DataLocation>
+<DefaultData>CustomerDefaultData</DefaultData>
+<IdLocation>^User.CustomerD</IdLocation>
+<IndexLocation>^User.CustomerI</IndexLocation>
+<StreamLocation>^User.CustomerS</StreamLocation>
+<Type>%Library.CacheStorage</Type>
+}
+
+}

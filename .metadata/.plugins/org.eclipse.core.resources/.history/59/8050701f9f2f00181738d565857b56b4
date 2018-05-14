@@ -1,0 +1,36 @@
+ROUTINE global
+global ; global routine
+ //MustHave(category) = name
+ //MustHave(category, subcategory) = name  
+ //MustHave(category, subcategory, item) = [colors, price]
+ 
+ set ^MustHave("Closing") = "women closing"
+ set ^MustHave("Closing", "dresses", "Boohoo Bold Stripe Midi Dress") = $lb("Multi", 42)
+ set ^MustHave("Closing", "dresses", "Premium Spot High Neck Ruffle Maxi Dress") = $lb("Multi/Black/White", 65)
+ set ^MustHave("Closing", "dresses", "Max&Co Colourblock Midi Dress") = $lb("Lemon/Mint", 189)
+
+ set ^MustHave("Closing", "pants", "Oasis Checked Tailored Trousers") = $lb("Multi", 42)
+ set ^MustHave("Closing", "pants", "Missguided Cigarette Trousers") = $lb("White/Black/Blue", 15)
+ set ^MustHave("Closing", "pants", "Y.A.S Striped Wide Leg Trousers") = $lb("Red/Biege", 55)
+
+ set ^MustHave("Shoes", "boots", "ALDO Two Part Ankle Strap Going Out Show with Mirror Heel") = $lb("Pink", 79)
+ set ^MustHave("Shoes", "boots", "ASOS ESLYN Western Boots") = $lb("Black", 38)
+ set ^MustHave("Shoes", "boots", "Steve Madden Dream Rope Tie Up Heeled Sandals") = $lb("Black", 110)
+ 
+ set ^MustHave("Accessories", "bags", "Ted Baker Pearl Stud Matinee with Chain Strap") = $lb("Black", 110)
+ set ^MustHave("Accessories", "bags", "Versace Jeans Foldover Crossbody Bag") = $lb("Black", 150)
+ set ^MustHave("Accessories", "bags", "Perspex Cross Body Ball Bag With Chain Strap") = $lb("Black", 25)
+ 
+ write !, "Welcome to MustHave shop"
+ // Find first node
+	Set key = $Order(^MustHave(""))
+	While (key '= "") {
+	     // Write out contents
+	     Write "#", key, " ", ^Data(key),!
+	
+	     // Find next node
+	     Set key = $Order(^Data(key))
+	}
+	read "Pick a category: 1 Clothing; 2 Shoes; 3 Accessories", ctg , !
+	
+end quit  ; end 

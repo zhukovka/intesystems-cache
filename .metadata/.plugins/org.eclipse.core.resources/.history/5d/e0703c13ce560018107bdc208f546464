@@ -1,0 +1,10 @@
+Class User.Customer extends (%Persistent, %Library.Populate) {
+
+Property Name As %String(MAXLEN = 120, POPSPEC = "Name(""F"")");
+
+Property Address As %String(MAXLEN = 120, POPSPEC = "Street()");
+
+Relationship Orders As Order [ Cardinality = many, Inverse = Customer ];
+
+
+}

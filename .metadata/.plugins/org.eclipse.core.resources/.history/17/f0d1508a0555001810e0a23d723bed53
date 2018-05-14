@@ -1,0 +1,9 @@
+Class User.Shop extends %Persistent {
+
+Relationship Stock As Stock [ Cardinality = children, Inverse = Shop ];
+
+Relationship Orders As Order [ Cardinality = many, Inverse = Shop ];
+
+Property Name As %String(MAXLEN = 120);
+
+}

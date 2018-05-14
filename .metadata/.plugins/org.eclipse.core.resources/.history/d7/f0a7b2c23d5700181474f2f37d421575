@@ -1,0 +1,70 @@
+Class User.Garment Extends (%Persistent, User.Item, %Library.Populate)
+{
+
+Property Size As User.Size;
+
+Storage Default
+{
+<Data name="GarmentDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Size</Value>
+</Value>
+<Value name="3">
+<Value>Price</Value>
+</Value>
+<Value name="4">
+<Value>Name</Value>
+</Value>
+<Value name="5">
+<Value>SKU</Value>
+</Value>
+<Value name="6">
+<Value>Photo</Value>
+</Value>
+<Value name="7">
+<Value>Stock</Value>
+</Value>
+</Data>
+<DataLocation>^User.GarmentD</DataLocation>
+<DefaultData>GarmentDefaultData</DefaultData>
+<ExtentSize>12</ExtentSize>
+<IdLocation>^User.GarmentD</IdLocation>
+<IndexLocation>^User.GarmentI</IndexLocation>
+<Property name="%%CLASSNAME">
+<AverageFieldSize>1</AverageFieldSize>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="%%ID">
+<AverageFieldSize>1.25</AverageFieldSize>
+<Selectivity>1</Selectivity>
+</Property>
+<Property name="Name">
+<AverageFieldSize>14.83</AverageFieldSize>
+<Selectivity>25.0000%</Selectivity>
+</Property>
+<Property name="Photo">
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="Price">
+<AverageFieldSize>6.83</AverageFieldSize>
+<Selectivity>8.3333%</Selectivity>
+</Property>
+<Property name="SKU">
+<AverageFieldSize>4</AverageFieldSize>
+<Selectivity>8.3333%</Selectivity>
+</Property>
+<Property name="Size">
+<AverageFieldSize>9.5,EU:2,Size:1.5,UKR:2,US:18.42</AverageFieldSize>
+<Selectivity>8.3333%,EU:14.2857%,Size:25.0000%,UKR:14.2857%,US:14.2857%</Selectivity>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<StreamLocation>^User.GarmentS</StreamLocation>
+<Type>%Library.CacheStorage</Type>
+}
+
+}

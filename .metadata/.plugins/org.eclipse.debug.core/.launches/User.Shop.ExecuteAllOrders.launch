@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="com.intersys.eclipse.studio.DebugModel.Type">
+<stringAttribute key="dbgp_session_id" value="ide_key"/>
+<intAttribute key="dbpg_waiting_timeout" value="30000"/>
+<booleanAttribute key="enableBreakOnFirstLine" value="false"/>
+<booleanAttribute key="enableDbgpLogging" value="false"/>
+<stringAttribute key="nature" value="com.intersys.eclipse.studio.nature"/>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/lab3/User/Shop.cls"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<stringAttribute key="project" value="lab3"/>
+<stringAttribute key="remoteWorkingDir" value=""/>
+<booleanAttribute key="stripSourceFolders" value="false"/>
+<stringAttribute key="studio-class-name" value="User.Shop"/>
+<stringAttribute key="studio-entrypoint-type" value="class"/>
+<stringAttribute key="studio-method-name" value="ExecuteAllOrders"/>
+</launchConfiguration>

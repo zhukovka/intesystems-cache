@@ -1,0 +1,22 @@
+Class User.Customer extends %Persistent {
+
+Property Name As %String(MAXLEN = 120);
+Storage Default
+{
+<Data name="CustomerDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+</Data>
+<DataLocation>^User.CustomerD</DataLocation>
+<DefaultData>CustomerDefaultData</DefaultData>
+<IdLocation>^User.CustomerD</IdLocation>
+<IndexLocation>^User.CustomerI</IndexLocation>
+<StreamLocation>^User.CustomerS</StreamLocation>
+<Type>%Library.CacheStorage</Type>
+}
+
+}

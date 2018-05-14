@@ -1,0 +1,5 @@
+ROUTINE global
+
+ //Library(author) = description
+ //Library(author) = склад
+ //SushiBar(вид, назва, кількість/вага) = ціна

@@ -1,0 +1,5 @@
+ROUTINE global
+
+ //MustHave(category) = name
+ //MustHave(category, item) = size, color
+ //MustHave(category, item) = ціна

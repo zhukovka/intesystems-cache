@@ -1,0 +1,44 @@
+Class User.Shop Extends (%Persistent, %Library.Populate)
+{
+
+Relationship Stock As Stock [ Cardinality = children, Inverse = Shop ];
+
+Relationship Orders As Order [ Cardinality = many, Inverse = Shop ];
+
+Property Name As %String(MAXLEN = 120);
+
+Storage Default
+{
+<Data name="ShopDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+</Data>
+<DataLocation>^User.ShopD</DataLocation>
+<DefaultData>ShopDefaultData</DefaultData>
+<ExtentSize>1</ExtentSize>
+<IdLocation>^User.ShopD</IdLocation>
+<IndexLocation>^User.ShopI</IndexLocation>
+<Property name="%%CLASSNAME">
+<AverageFieldSize>1</AverageFieldSize>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="%%ID">
+<AverageFieldSize>1</AverageFieldSize>
+<Selectivity>1</Selectivity>
+</Property>
+<Property name="Name">
+<AverageFieldSize>12</AverageFieldSize>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<StreamLocation>^User.ShopS</StreamLocation>
+<Type>%Library.CacheStorage</Type>
+}
+
+}

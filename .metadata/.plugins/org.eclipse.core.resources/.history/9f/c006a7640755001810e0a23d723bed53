@@ -1,0 +1,90 @@
+ROUTINE shop
+#Include %occInclude
+
+shop
+ //
+ // Create sample data for the Cache' Cinema application
+ //
+ do Load(4)
+ quit
+Load(Level) //
+ new cat,i,item,TheCount
+ //
+ set Level = $G(Level,4)
+ //
+ // Delete existing data
+ set $zt="ErrorClassDelete"
+ do ##class(Shop).%DeleteExtent()
+ if (Level > 1) {
+         do ##class(Stock).%DeleteExtent()
+ }
+ if (Level > 2) {
+	 do ##class(Garment).%DeleteExtent()
+	 do ##class(Accessory).%DeleteExtent()
+ }
+ if (Level > 3) {
+     do ##class(Order).%DeleteExtent()
+     do ##class(Customer).%DeleteExtent()
+ }
+ //
+ set $zt="ErrorClassLoad"
+ //
+ // Create Theater objects
+ set TheCount = 9
+ if (Level > 2) {
+         set item(1) = ##class(Garment).%New()
+         set item(1).Name= "Boohoo Bold Stripe Midi Dress"
+         set item(1).SKU= "ADKDKDLK1"
+         set item(2) = ##class(Garment).%New()
+         set item(2).Name= "Premium Spot High Neck Ruffle Maxi Dress"
+         set item(2).SKU= "ADKDKDLK1"
+         set item(3) = ##class(Garment).%New()
+         set item(3).Name= "Max&Co Colourblock Midi Dress"
+         set item(3).SKU= "ADKDKD1231"
+         set item(4) = ##class(Garment).%New()
+         set item(4).Name= "Oasis Checked Tailored Trousers"
+         set item(4).SKU= "ADK432KDLK1"
+         set item(5) = ##class(Garment).%New()
+         set item(5).Name= "Missguided Cigarette Trousers"
+         set item(5).SKU= "ADK5432LK1"
+         set item(6) = ##class(Garment).%New()
+         set item(6).Name= "Y.A.S Striped Wide Leg Trousers"
+         set item(6).SKU= "ADK643DLK1"
+         set item(7) = ##class(Accessory).%New()
+         set item(7).Name= "Ted Baker Pearl Stud Matinee with Chain Strap"
+         set item(7).SKU= "ADK634DLK1"
+         set item(8) = ##class(Accessory).%New()
+         set item(8).Name= "Versace Jeans Foldover Crossbody Bag"
+         set item(8).SKU= "ADKD3456LK1"
+         set item(9) = ##class(Accessory).%New()
+         set item(9).Name= "Perspex Cross Body Ball Bag With Chain Strap"
+         set item(9).SKU= "ADKD34532LK1"
+         //
+         // Set ticket prices
+         for i=1:1:TheCount {
+         set item(i).Price= 6 + ($R(8)*.25)
+         Set stream=##class(%Stream.FileBinary).%New()
+         do stream.Image.LinkToFile("/Users/lenka/Pictures/MustHave/"_item(i).SKU_"/image.jpg")
+         do stream.%Save()
+         set item(i).Photo = stream
+         do (item(i)).%Save()
+         }
+ }
+ 
+ set shop=##class(Shop).%New()
+ set shop.Name = "Must Have"
+ set stock =##class(Stock).%New()
+ for i=1:1:TheCount {
+ 	do stock.Items.Insert(item(i))
+ }
+ // set stock.Items = item
+ set stock.Shop = shop
+ // set shop.Stock = stock
+ write shop.%Save()
+ write stock.%Save()
+ quit 1
+ //
+ErrorClassDelete //
+ quit -1
+ErrorClassLoad //
+ quit -2

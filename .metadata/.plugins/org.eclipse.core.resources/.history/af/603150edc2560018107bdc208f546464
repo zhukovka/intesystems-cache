@@ -1,0 +1,41 @@
+Class User.Size Extends (%SerialObject, %Library.Populate)
+{
+
+/// EU standart
+Property EU As %Numeric(MINVAL = 32);
+
+/// Ukrainian standart
+Property UKR As %Numeric(MINVAL = 42);
+
+Property US As %Numeric [ Calculated, SqlComputeCode = {set {US} = ##class(User.Size).ConvertToUS({UKR})}, SqlComputed ];
+
+ClassMethod ConvertToUS(UKR As %Numeric) As %Numeric
+{
+	Quit UKR / 4.2
+}
+
+
+/// Universal
+Property Size As %String(VALUELIST = ",XS,S,M,L,XL");
+/// Universal
+Storage Default
+{
+<Data name="SizeState">
+<Value name="1">
+<Value>EU</Value>
+</Value>
+<Value name="2">
+<Value>UKR</Value>
+</Value>
+<Value name="3">
+<Value>Size</Value>
+</Value>
+</Data>
+<Description>
+<![CDATA[Universal]]></Description>
+<State>SizeState</State>
+<StreamLocation>^User.SizeS</StreamLocation>
+<Type>%Library.CacheSerialState</Type>
+}
+
+}

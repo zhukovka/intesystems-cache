@@ -1,0 +1,38 @@
+Class User.Garment extends (%Persistent, User.Item, %Library.Populate) {
+Property Size as User.Size;
+ //Relationship Stock As Stock [ Cardinality = one, Inverse = Items ];
+
+Storage Default
+{
+<Data name="GarmentDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Size</Value>
+</Value>
+<Value name="3">
+<Value>Price</Value>
+</Value>
+<Value name="4">
+<Value>Name</Value>
+</Value>
+<Value name="5">
+<Value>SKU</Value>
+</Value>
+<Value name="6">
+<Value>Photo</Value>
+</Value>
+<Value name="7">
+<Value>Stock</Value>
+</Value>
+</Data>
+<DataLocation>^User.GarmentD</DataLocation>
+<DefaultData>GarmentDefaultData</DefaultData>
+<IdLocation>^User.GarmentD</IdLocation>
+<IndexLocation>^User.GarmentI</IndexLocation>
+<StreamLocation>^User.GarmentS</StreamLocation>
+<Type>%Library.CacheStorage</Type>
+}
+
+}

@@ -1,0 +1,16 @@
+ROUTINE hello
+hello ; hello world routine
+ //	WRITE !,$LOCATE("aardvarkz","(?i)Z")
+ //	WRITE !,$LOCATE("Ted Baker Pearl Stud Matinee with Chain Strap","(?i)hain")
+ //	WRITE !,$FIND("aardvarkz","A")
+	WRITE !, "hello"_"world"
+ //	WRITE $LISTVALID("123")
+ //	SET namestring="Deborah/"
+ //	SET namelist=$LISTFROMSTRING(namestring,"/")
+ //	write !, $LISTLENGTH(namelist)
+ //	WRITE !,"1st element: ",$LIST(namelist,1)
+ //	WRITE !,"2nd element: ",$LIST(namelist,2)
+ set arr = $lb("Multi/Black/White", 65)
+ write !, $LISTTOSTRING(arr)
+end quit  ; end 
+ 

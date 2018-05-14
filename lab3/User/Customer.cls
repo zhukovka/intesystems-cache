@@ -1,0 +1,90 @@
+Class User.Customer Extends (%Persistent, %Library.Populate)
+{
+
+Property Name As %String(MAXLEN = 120, POPSPEC = "Name(""F"")") [ Required ];
+
+Property Address As %String(MAXLEN = 120, POPSPEC = "Street()");
+
+Relationship Orders As Order [ Cardinality = many, Inverse = Customer ];
+
+Query ListCustomers(City As %String = "") As %SQLQuery(CONTAINID = 1, ROWSPEC = "ID:%Integer,Name:%String,Address:%String")
+{
+ SELECT ID,Name,Address FROM Customer
+ WHERE (Address %STARTSWITH :City)
+ ORDER BY Name
+}
+
+Trigger LogEvent [ Event = INSERT, Foreach = row/object, Time = AFTER ]
+{
+        // get row id of inserted row
+        NEW id
+        SET id = {ID}
+
+        // INSERT value into Log table
+        &sql(INSERT INTO LogTable 
+            (TableName, Value) 
+            VALUES ('User.Customer', :id))
+}
+
+ClassMethod Cursor()
+{
+ &sql(DECLARE C1 CURSOR FOR
+    SELECT %ID,Name
+    INTO :id, :name
+    FROM Customer
+    ORDER BY Name
+ )
+
+ &sql(OPEN C1)
+ &sql(FETCH C1)
+
+ While (SQLCODE = 0) {
+     Write id, ":  ", name,!        
+    &sql(FETCH C1)
+ }
+    
+ &sql(CLOSE C1)
+}
+
+Storage Default
+{
+<Data name="CustomerDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+<Value name="3">
+<Value>Address</Value>
+</Value>
+</Data>
+<DataLocation>^User.CustomerD</DataLocation>
+<DefaultData>CustomerDefaultData</DefaultData>
+<ExtentSize>3</ExtentSize>
+<IdLocation>^User.CustomerD</IdLocation>
+<IndexLocation>^User.CustomerI</IndexLocation>
+<Property name="%%CLASSNAME">
+<AverageFieldSize>1</AverageFieldSize>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="%%ID">
+<AverageFieldSize>1</AverageFieldSize>
+<Selectivity>1</Selectivity>
+</Property>
+<Property name="Address">
+<AverageFieldSize>17.67</AverageFieldSize>
+<Selectivity>33.3333%</Selectivity>
+</Property>
+<Property name="Name">
+<AverageFieldSize>16.33</AverageFieldSize>
+<Selectivity>33.3333%</Selectivity>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<StreamLocation>^User.CustomerS</StreamLocation>
+<Type>%Library.CacheStorage</Type>
+}
+
+}

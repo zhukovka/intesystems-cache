@@ -1,0 +1,102 @@
+Class User.Shop Extends (%Persistent, %Library.Populate)
+{
+
+Relationship Stock As Stock [ Cardinality = children, Inverse = Shop ];
+
+Relationship Orders As Order [ Cardinality = many, Inverse = Shop ];
+
+Property Name As %String(MAXLEN = 120);
+
+ClassMethod ExecuteAllOrders(){
+	set resultSet = ##class(%ResultSet).%New()
+	set resultSet.ClassName = "Shop"
+	set resultSet.QueryName = "GetAllOrders"
+	write resultSet.Execute(1)
+ //	do resultSet.Display()
+ 	while resultSet.Next(){
+ 		write !, resultSet.Get("Date")
+ 		write !, resultSet.Get("Total")
+ 	}
+}
+
+Query GetAllOrders(ShopID As %Numeric) As %Query(CONTAINID = 1, ROWSPEC = "Date:%Date,Total:%Float")
+{
+}
+
+ClassMethod GetAllOrdersFetch(ByRef qHandle As %Binary, ByRef Row As %List, ByRef AtEnd As %Integer = 0) As %Status [ PlaceAfter = GetAllOrdersExecute ] 
+{ 
+   set rs=$get(qHandle) 
+   if $ll(rs)=0 { 
+      set Row="" 
+      set AtEnd=1 
+      quit $$$OK 
+   } 
+   if ^||iter <= $ll(rs) { 
+      set Row=$li(rs, ^||iter) 
+      set AtEnd=0 
+      set ^||iter = $increment(^||iter) 
+   } else { 
+      set Row="" 
+      set AtEnd=1 
+   } 
+   Quit $$$OK 
+}
+
+ClassMethod GetAllOrdersExecute(ByRef qHandle As %Binary, ShopID As %Numeric) As %Status
+{
+ 
+   set shop = ##class(User.Shop).%OpenId(ShopID) 
+   if '$IsObject(shop) quit $$$ERROR() 
+   Set key = "" 
+   Do { 
+      Set order = shop.Orders.GetNext(.key) 
+      If (order '= "") { 
+         set $li(qHandle, *+1) = $lb(order.Date, order.Total) 
+      } 
+   } While (key '= "") 
+   kill ^||iter 
+   set ^||iter = 1 
+   Quit $$$OK
+}
+
+ClassMethod GetAllOrdersClose(ByRef qHandle As %Binary) As %Status [ PlaceAfter = GetAllOrdersExecute ] 
+{ 
+   Set qHandle="" 
+   Quit $$$OK 
+} 
+
+Storage Default
+{
+<Data name="ShopDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+</Data>
+<DataLocation>^User.ShopD</DataLocation>
+<DefaultData>ShopDefaultData</DefaultData>
+<ExtentSize>1</ExtentSize>
+<IdLocation>^User.ShopD</IdLocation>
+<IndexLocation>^User.ShopI</IndexLocation>
+<Property name="%%CLASSNAME">
+<AverageFieldSize>1</AverageFieldSize>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="%%ID">
+<AverageFieldSize>1</AverageFieldSize>
+<Selectivity>1</Selectivity>
+</Property>
+<Property name="Name">
+<AverageFieldSize>19</AverageFieldSize>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<StreamLocation>^User.ShopS</StreamLocation>
+<Type>%Library.CacheStorage</Type>
+}
+
+}

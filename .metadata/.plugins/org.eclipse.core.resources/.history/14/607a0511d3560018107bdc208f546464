@@ -1,0 +1,5 @@
+Class User.Garment extends (%Persistent, User.Item, %Library.Populate) {
+Property Size as User.Size;
+
+
+}

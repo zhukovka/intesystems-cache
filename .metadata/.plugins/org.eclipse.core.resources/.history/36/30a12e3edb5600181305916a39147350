@@ -1,0 +1,25 @@
+Class User.Tests extends %UnitTest.TestCase {
+
+ClassMethod Run() As %Status
+{
+	write "Running test", !
+	Set ^UnitTestRoot="/Users/lenka/Downloads/cache/unittests"
+	set className = ..%ClassName(1)
+	set testcase = className
+	set testsuite = className
+	set testspec = testsuite _ ":" _ testcase
+	set qualifiers = "/load=0/recursive=0"
+	set status = ##class(%UnitTest.Manager).RunTest(testspec, qualifiers)
+	quit status
+}
+
+Method TestAdd()
+{
+	set outlet = ##class(Order).%New()
+	set status = outlet.%Save()
+	do $$$AssertEquals(status,1, "Test new Order")
+}
+
+Method TestRequired(){
+}
+}

@@ -1,0 +1,18 @@
+Class User.Stock extends %Persistent {
+Relationship Items As Item [ Cardinality = many, Inverse = Stock ];
+Storage Default
+{
+<Data name="StockDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+</Data>
+<DataLocation>^User.StockD</DataLocation>
+<DefaultData>StockDefaultData</DefaultData>
+<IdLocation>^User.StockD</IdLocation>
+<IndexLocation>^User.StockI</IndexLocation>
+<StreamLocation>^User.StockS</StreamLocation>
+<Type>%Library.CacheStorage</Type>
+}
+
+}

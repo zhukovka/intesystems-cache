@@ -1,0 +1,7 @@
+Class User.Tests extends %UnitTest.TestCase {
+Method TestAdd()
+{
+ do $$$AssertEquals(##class(TestMe).Add(2,2),4, "Test Add(2,2)=4")
+ do $$$AssertNotEquals(##class(TestMe).Add(2,2),5,"Test Add(2,2)'=5")
+}
+}

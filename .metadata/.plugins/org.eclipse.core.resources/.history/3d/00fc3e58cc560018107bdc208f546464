@@ -1,0 +1,10 @@
+ROUTINE populate
+
+populate ; populate routine
+ 
+ Do ##class(Garment).Populate(10)
+ Do ##class(Accessory).Populate(10)
+ Do ##class(Shop).Populate(1)
+ Do ##class(Stock).Populate(1)
+ 
+end quit  ; end 

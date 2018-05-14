@@ -1,0 +1,5 @@
+Class User.Accessory extends (%Persistent, User.Item, %Populate) {
+Property Dimensions As Dimensions;
+
+
+}

@@ -1,0 +1,8 @@
+Class User.Stock extends %Persistent {
+
+Relationship Items As Item [ Cardinality = many, Inverse = Stock ];
+
+Relationship Shop As Shop [ Cardinality = parent, Inverse = Stock ];
+
+
+}

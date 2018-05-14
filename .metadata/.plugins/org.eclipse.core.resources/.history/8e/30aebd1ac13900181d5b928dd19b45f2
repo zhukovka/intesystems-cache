@@ -1,0 +1,4 @@
+Class User.Customer extends %Persistent {
+
+Property Name As %String(MAXLEN = 120);
+}

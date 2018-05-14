@@ -1,0 +1,6 @@
+ROUTINE trigger
+trigger;
+	set customer = ##class(Customer).%New()
+	set customer.Name = "Trigger"
+	write !, customer.%Save()
+end quit  ; end 

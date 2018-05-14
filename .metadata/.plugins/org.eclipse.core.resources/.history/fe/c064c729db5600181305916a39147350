@@ -1,0 +1,51 @@
+Class User.Customer Extends (%Persistent, %Library.Populate)
+{
+
+Property Name As %String(MAXLEN = 120, POPSPEC = "Name(""F"")");
+
+Property Address As %String(MAXLEN = 120, POPSPEC = "Street()");
+
+Relationship Orders As Order [ Cardinality = many, Inverse = Customer ];
+
+Storage Default
+{
+<Data name="CustomerDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+<Value name="3">
+<Value>Address</Value>
+</Value>
+</Data>
+<DataLocation>^User.CustomerD</DataLocation>
+<DefaultData>CustomerDefaultData</DefaultData>
+<ExtentSize>3</ExtentSize>
+<IdLocation>^User.CustomerD</IdLocation>
+<IndexLocation>^User.CustomerI</IndexLocation>
+<Property name="%%CLASSNAME">
+<AverageFieldSize>1</AverageFieldSize>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="%%ID">
+<AverageFieldSize>1</AverageFieldSize>
+<Selectivity>1</Selectivity>
+</Property>
+<Property name="Address">
+<AverageFieldSize>17</AverageFieldSize>
+<Selectivity>33.3333%</Selectivity>
+</Property>
+<Property name="Name">
+<AverageFieldSize>17.67</AverageFieldSize>
+<Selectivity>33.3333%</Selectivity>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<StreamLocation>^User.CustomerS</StreamLocation>
+<Type>%Library.CacheStorage</Type>
+}
+
+}

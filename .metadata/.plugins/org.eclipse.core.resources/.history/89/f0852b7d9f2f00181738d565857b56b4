@@ -1,0 +1,18 @@
+ROUTINE shopping
+shopping ; shopping routine
+	
+	write !, "Welcome to MustHave shop"
+	// Find first node
+	Set key = $Order(^MustHave(""))
+	While (key '= "") {
+	     // Write out contents
+	     Write "#", key, " ", ^Data(key),!
+	
+	     // Find next node
+	     Set key = $Order(^Data(key))
+    }
+	read "Pick a category: 1 Clothing; 2 Shoes; 3 Accessories", ctg , !
+	
+	
+
+end quit  ; end

@@ -1,0 +1,18 @@
+Class User.Item [ Abstract ] {
+Index KEY On SKU [ IdKey ];
+
+/// Category of this product.
+Property Price As %Numeric(MINVAL = 0);
+
+/// Name of this product.
+Property Name As %String(MAXLEN = 120);
+
+/// SKU for this product.
+Property SKU As %String(MAXLEN = 22);
+
+///Photo of this item
+Property Photo As %Stream.FileBinary(LOCATION = "/Users/lenka/Pictures");
+
+Relationship Stock As Stock [ Cardinality = one, Inverse = Items ];
+
+}

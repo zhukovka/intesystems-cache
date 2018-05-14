@@ -1,0 +1,7 @@
+ROUTINE global
+
+ //MustHave(category) = name
+ //MustHave(category, subcategory) = name  
+ //MustHave(category, subcategory, item) = [sizes, colors, price]
+ 
+ 
